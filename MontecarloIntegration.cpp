@@ -68,4 +68,6 @@ double MontecarloIntegration::integrate(int samples){
     for(int i=0; i<samples; i++){
         //
     }
+
+    return 0; 
 }

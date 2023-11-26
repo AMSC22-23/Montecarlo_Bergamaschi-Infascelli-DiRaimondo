@@ -1,14 +1,18 @@
 #include <iostream>
 #include <fstream>
+#include <string>
 #include "HyperRectangle.cpp"
 #include "HyperSphere.cpp"
 #include "MontecarloIntegration.cpp"    //da cambiare con hpp?
 
 using namespace std;
+using namespace Domain; 
 
 int main(int argc, char** argv){
     int type_domain = 0;
     int numSamples = 0;
+    double x; 
+    
 
     //at least one parameter for the main, one for the input, one for the type of the domain
     // and another one for the numSamples
@@ -24,15 +28,20 @@ int main(int argc, char** argv){
         return -1;
     }
 
+     //da sistemare
+    ifstream input("input.txt");
+ 
+
     //for simplicity, we use 0 to indicate the HyperSphere and 1 for the Hyper-rectangle
     if(type_domain == 0){
         //hyperSphere
         //passare dei parametri
-        HyperSphere* h = new HyperSphere();
+        HyperSphere* h = new HyperSphere(argv[1]);
+
     }
     else{       
         //hyperRectangle
-        HyperRectangle* h = new HyperRectangle();
+        HyperRectangle* h = new HyperRectangle(argv[1]);
     }
 
     numSamples = atoi(argv[3]);
@@ -40,8 +49,7 @@ int main(int argc, char** argv){
         cout << "Invalid parameter for the number of samples" << endl;
         return -1;
     }
-    //da sistemare
-    ifstream input("input.txt");
+   
 
     MontecarloIntegration m;
     //da sistemare, bisogna aggiungere funzione e dominio
