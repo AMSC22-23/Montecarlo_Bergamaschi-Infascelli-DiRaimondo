@@ -4,15 +4,19 @@
 #include "HyperRectangle.cpp"
 #include "HyperSphere.cpp"
 #include "MontecarloIntegration.cpp"    //da cambiare con hpp?
+#include "Domain.hpp"
 
 using namespace std;
-using namespace Domain; 
-
 int main(int argc, char** argv){
     int type_domain = 0;
     int numSamples = 0;
     double x; 
     
+
+//cout << argv[0] << endl;
+//cout << argv[1] << endl;
+//cout << argv[2] << endl;
+//cout << argv[3] << endl;
 
     //at least one parameter for the main, one for the input, one for the type of the domain
     // and another one for the numSamples
@@ -28,15 +32,12 @@ int main(int argc, char** argv){
         return -1;
     }
 
-     //da sistemare
-    ifstream input("input.txt");
- 
-
     //for simplicity, we use 0 to indicate the HyperSphere and 1 for the Hyper-rectangle
     if(type_domain == 0){
         //hyperSphere
         //passare dei parametri
         HyperSphere* h = new HyperSphere(argv[1]);
+        h->generateRandomPoint();
 
     }
     else{       

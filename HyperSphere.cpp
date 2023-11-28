@@ -3,45 +3,83 @@
 #include <string> 
 #include <cmath>
 #include <cstdlib>
-#include "Domain.cpp"
-#include  <fstream>
+#include <fstream>
+#include <random>
+#include "Domain.hpp" 
 
 using namespace std;
-namespace Domain {
-    class HyperSphere: public Domain {
-    private:
-        double r = 0.0;   //radius
-        vector<double> center;
-        int dimensions = 0;
-        double x; 
+
+struct Range {
+    double x,y; 
+}; 
+
+class HyperSphere : public Domain {
+private:
+    double r = 0.0;   //radius
+    vector<double> center;
+    int dimensions = 0;
+    double x; 
+    double rv = 0.0;
+    mt19937 re{random_device{}()};
+    vector<Range> cord;
+    vector<double> point;
 
 
-    public:
-        
-        HyperSphere(string inputFile){
-            
-            ifstream input(inputFile);
-            input >> dimensions; 
-            input >> r; 
+public:
+    //constructor of the HyperSphere
+    HyperSphere(const string inputFile){
+     //   cout << inputFile << endl;
+        ifstream input(inputFile);
+        input >> dimensions; 
+        input >> r; 
 
-            if(r <= 0.0 || dimensions <= 0){
-                cout << "The value of the radius/dimensions is not valid " << endl;
-                exit(-1);
-            }
-
+        if(r <= 0.0){
+            cout << "The value of the radius is not valid " << endl;
+            cout << "The radius is:" << r << endl;
+            exit(-1);
+        }
+        if(dimensions <= 0){
+            cout << "The value of the dimension is not valid" << endl;
+            exit(-1);
+        }
+        for(int i = 0 ; i < dimensions; i++){
+            input >> x; 
+            center.emplace_back(x);
+        }
+            /*
             for(int i = 0 ; i < dimensions; i++){
-                input >> x; 
-                center.emplace_back(x);
+                cout << center[i] << endl;
             }
+            */
+            //it's necessary to reserve enough space for the vector
+        cord.reserve(dimensions);
+        cord.resize(dimensions);
+        
+        for(int i=0; i < dimensions ; i++){
+            cord[i].x = center[i] - r; 
+            cord[i].y = center[i] + r;
+        }
+        
         }
 
-        int getDimensionDomain() override{
+        int getDimensionDomain() {
             return dimensions;
         }
         
-        double getVolume() override {
+        double getVolume() {
             return (std::pow(r,dimensions) * std::pow(M_PI, dimensions/2.0)) / std::tgamma((dimensions/2.0)+1.0);
         }
 
+        void generateRandomPoint(){
+            point.reserve(dimensions);
+            point.resize(dimensions);
+            //this is to generate a random number (inside the hypercube)
+            for(int j = 0; j < dimensions; j++){
+                uniform_real_distribution<double> distribution(cord[j].x, cord[j].y);
+                point[j] = distribution(re);
+                std::cout << "The random number generated is: " << point[j] << endl;
+            }
+        } 
+
     };
-}
+

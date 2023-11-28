@@ -2,9 +2,14 @@
 #include <vector>
 #include <cmath>
 #include <cstdlib>
+#include <random>
 
-namespace Domain {
+#ifndef MONTECARLO_H
+#define MONTECARLO_H
+
+using namespace std;
 class Domain {
+    
     private : 
     int nDimension; 
 
@@ -17,7 +22,7 @@ class Domain {
     };
 
     virtual int getDimensionDomain() = 0; 
-
     virtual double getVolume() = 0; 
+    virtual void generateRandomPoint() = 0;
 };
-}
+#endif //MONTECARLO_H

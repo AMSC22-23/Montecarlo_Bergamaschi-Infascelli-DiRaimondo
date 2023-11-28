@@ -3,13 +3,11 @@
 #include <string> 
 #include <cmath>
 #include <cstdlib>
-#include "Domain.cpp"
+#include "Domain.hpp"
 #include  <fstream>
 
 using namespace std; 
-
-namespace Domain {
-    struct Coordinate {
+    struct Edges {
         double x,y; 
     }; 
 
@@ -17,27 +15,32 @@ namespace Domain {
 
         private:
         int dimensions; 
-        vector<Coordinate> cord; 
+        vector<Edges> cord; 
+        mt19937 re{random_device{}()};
 
         public:
         HyperRectangle(string inputFile){
             ifstream input(inputFile);
             input >> dimensions; 
+            cout << "dimension of hr: " << dimensions << endl;
             for(int i=0; i < dimensions/2 ; i++){
                 input >> cord[i].x; 
                 input >> cord[i].y; 
             }
         }
 
-        int getDimensionDomain() override{
+        int getDimensionDomain() {
             return dimensions;
         }
         
-        double getVolume() override {
+        double getVolume()  {
             double totVol = 1; 
             for(int i=0; i < dimensions/2; i++){
                 totVol = 1; 
             }
+            return 0;
+        }
+        void generateRandomPoint(){
+            //
         }
     };
-}
