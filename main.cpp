@@ -11,6 +11,7 @@ int main(int argc, char** argv){
     int type_domain = 0;
     int numSamples = 0;
     double x; 
+    Domain *h; 
     
 
 //cout << argv[0] << endl;
@@ -36,13 +37,13 @@ int main(int argc, char** argv){
     if(type_domain == 0){
         //hyperSphere
         //passare dei parametri
-        HyperSphere* h = new HyperSphere(argv[1]);
+        h = new HyperSphere(argv[1]);
         h->generateRandomPoint();
 
     }
     else{       
         //hyperRectangle
-        HyperRectangle* h = new HyperRectangle(argv[1]);
+         h = new HyperRectangle(argv[1]);
     }
 
     numSamples = atoi(argv[3]);
@@ -55,7 +56,7 @@ int main(int argc, char** argv){
     MontecarloIntegration m;
     //da sistemare, bisogna aggiungere funzione e dominio
 
-    double res = m.integrate(numSamples);
+    double res = m.integrate( h ,numSamples);
     cout << "The integral of the function using Montecarlo integration is " << endl;
     cout << res << endl;
 

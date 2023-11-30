@@ -17,8 +17,8 @@ class HyperSphere : public Domain {
 private:
     double r = 0.0;   //radius
     vector<double> center;
-    int dimensions = 0;
-    double x; 
+    int dimensions = 0, numIn=0, numTot=0;
+    double x,sum; 
     double rv = 0.0;
     mt19937 re{random_device{}()};
     vector<Range> cord;
@@ -70,7 +70,8 @@ public:
             return (std::pow(r,dimensions) * std::pow(M_PI, dimensions/2.0)) / std::tgamma((dimensions/2.0)+1.0);
         }
 
-        void generateRandomPoint(){
+       void generateRandomPoint(){
+            sum =0; 
             point.reserve(dimensions);
             point.resize(dimensions);
             //this is to generate a random number (inside the hypercube)
@@ -78,8 +79,17 @@ public:
                 uniform_real_distribution<double> distribution(cord[j].x, cord[j].y);
                 point[j] = distribution(re);
                 std::cout << "The random number generated is: " << point[j] << endl;
+                sum += (point[j]-center[j])*(point[j]-center[j]);
             }
-        } 
+
+            if(sum <= r*r){ 
+              // ritorna a qualcosa   
+            }  
+        }
+
+        double getRadius(){
+            return r; 
+        }
 
     };
 
