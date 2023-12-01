@@ -5,19 +5,14 @@
 #include "HyperSphere.cpp"
 #include "MontecarloIntegration.cpp"    //da cambiare con hpp?
 #include "Domain.hpp"
+#include <memory>
 
 using namespace std;
 int main(int argc, char** argv){
     int type_domain = 0;
     int numSamples = 0;
     double x; 
-    Domain *h; 
-    
-
-//cout << argv[0] << endl;
-//cout << argv[1] << endl;
-//cout << argv[2] << endl;
-//cout << argv[3] << endl;
+    std::unique_ptr<Domain> d;
 
     //at least one parameter for the main, one for the input, one for the type of the domain
     // and another one for the numSamples
@@ -36,14 +31,11 @@ int main(int argc, char** argv){
     //for simplicity, we use 0 to indicate the HyperSphere and 1 for the Hyper-rectangle
     if(type_domain == 0){
         //hyperSphere
-        //passare dei parametri
-        h = new HyperSphere(argv[1]);
-        h->generateRandomPoint();
-
+        d = std::make_unique<HyperSphere>(argv[1]);
     }
     else{       
         //hyperRectangle
-         h = new HyperRectangle(argv[1]);
+        d = std::make_unique<HyperRectangle>(argv[1]);
     }
 
     numSamples = atoi(argv[3]);
@@ -56,9 +48,10 @@ int main(int argc, char** argv){
     MontecarloIntegration m;
     //da sistemare, bisogna aggiungere funzione e dominio
 
-    double res = m.integrate( h ,numSamples);
+    double res = m.integrate(d ,numSamples);
     cout << "The integral of the function using Montecarlo integration is " << endl;
     cout << res << endl;
+  //  d.release();
 
     return 0;
 } 

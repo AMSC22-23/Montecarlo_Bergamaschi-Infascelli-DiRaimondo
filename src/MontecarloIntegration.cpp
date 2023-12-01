@@ -10,7 +10,7 @@ private:
 
 public:
 
-    double integrate(Domain *, int);
+    double integrate(unique_ptr<Domain> &, int);
     
     double getIntegral(){
         return integral;
@@ -18,7 +18,7 @@ public:
 };
 
 
-double MontecarloIntegration::integrate(Domain *d, int samples){
+double MontecarloIntegration::integrate(unique_ptr<Domain> &d, int samples){
     
     double sum =0 ; 
     vector<double> point; 
@@ -27,11 +27,15 @@ double MontecarloIntegration::integrate(Domain *d, int samples){
 
     //conviene fare una classe astratta per una generica forma geometrica? oppure if else
     //the number of samples should be taken from the command line (?)
-    for(int i=0; i<samples; i++){
-         d->generateRandomPoint();
-        if(point.size() != 0){
-            //usa punto...
-        } 
+    for(int k = 0; k < samples; k++){
+
+        if(d->generateRandomPoint() != -1){
+            point = d->getPoint();
+            for(int j = 0; j < point.size(); j++){
+                cout << point[j] << endl;
+            }
+        }
+        //se non sono entrata nell'if significa che il punto non sta nel dominio
     }
 
     return 0; 

@@ -17,8 +17,11 @@ using namespace std;
         int dimensions; 
         vector<Edges> cord; 
         mt19937 re{random_device{}()};
+        vector<double> point;
 
         public:
+        //da modificare
+
         HyperRectangle(string inputFile){
             ifstream input(inputFile);
             input >> dimensions; 
@@ -40,7 +43,11 @@ using namespace std;
             }
             return 0;
         }
-        void generateRandomPoint(){
+        double generateRandomPoint(){
             //
+            return 0;
+        }
+        vector<double> getPoint(){
+            return point;
         }
     };

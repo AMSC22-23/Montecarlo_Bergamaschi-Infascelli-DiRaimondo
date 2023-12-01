@@ -28,7 +28,6 @@ private:
 public:
     //constructor of the HyperSphere
     HyperSphere(const string inputFile){
-     //   cout << inputFile << endl;
         ifstream input(inputFile);
         input >> dimensions; 
         input >> r; 
@@ -70,25 +69,31 @@ public:
             return (std::pow(r,dimensions) * std::pow(M_PI, dimensions/2.0)) / std::tgamma((dimensions/2.0)+1.0);
         }
 
-       void generateRandomPoint(){
-            sum =0; 
+       double generateRandomPoint(){
+            sum = 0; 
             point.reserve(dimensions);
             point.resize(dimensions);
+        
             //this is to generate a random number (inside the hypercube)
+
             for(int j = 0; j < dimensions; j++){
                 uniform_real_distribution<double> distribution(cord[j].x, cord[j].y);
                 point[j] = distribution(re);
-                std::cout << "The random number generated is: " << point[j] << endl;
+                std::cout << "The "<< j << "th coordinate of the number is " << point[j] << endl;
                 sum += (point[j]-center[j])*(point[j]-center[j]);
             }
-
-            if(sum <= r*r){ 
-              // ritorna a qualcosa   
-            }  
+            if(sum > r*r){ 
+                //metto point a null oppure elimino tutti i suoi elementiz
+                return -1;
+            } 
+            return sum;
         }
 
         double getRadius(){
             return r; 
+        }
+        vector<double> getPoint(){
+            return point;
         }
 
     };
