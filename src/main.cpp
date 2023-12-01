@@ -7,6 +7,8 @@
 #include "Domain.hpp"
 #include <memory>
 
+
+
 using namespace std;
 int main(int argc, char** argv){
     int type_domain = 0;

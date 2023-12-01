@@ -6,8 +6,10 @@
 #include <fstream>
 #include <random>
 #include "Domain.hpp" 
+#include "muParser.h"
 
 using namespace std;
+using namespace mu; 
 
 struct Range {
     double x,y; 
@@ -23,6 +25,8 @@ private:
     mt19937 re{random_device{}()};
     vector<Range> cord;
     vector<double> point;
+    string function; 
+    double var_x; 
 
 
 public:
@@ -31,6 +35,11 @@ public:
         ifstream input(inputFile);
         input >> dimensions; 
         input >> r; 
+        input >> function; 
+
+        mu::Parser pf; 
+         
+
 
         if(r <= 0.0){
             cout << "The value of the radius is not valid " << endl;
