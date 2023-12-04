@@ -33,13 +33,13 @@ public:
     //constructor of the HyperSphere
     HyperSphere(const string inputFile){
         ifstream input(inputFile);
+
+        if (!input.is_open()) {
+            cout << "Error opening input file: " << inputFile << endl;
+            exit(-1);
+        }
         input >> dimensions; 
         input >> r; 
-        input >> function; 
-
-        mu::Parser pf; 
-         
-
 
         if(r <= 0.0){
             cout << "The value of the radius is not valid " << endl;
@@ -54,6 +54,8 @@ public:
             input >> x; 
             center.emplace_back(x);
         }
+        input >> function; 
+        mu::Parser pf; 
             /*
             for(int i = 0 ; i < dimensions; i++){
                 cout << center[i] << endl;

@@ -6,6 +6,7 @@
 #include "MontecarloIntegration.cpp"    //da cambiare con hpp?
 #include "Domain.hpp"
 #include <memory>
+#include "muParser.h"
 
 
 
