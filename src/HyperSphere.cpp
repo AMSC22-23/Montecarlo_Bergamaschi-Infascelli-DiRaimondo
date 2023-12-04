@@ -55,13 +55,7 @@ public:
             center.emplace_back(x);
         }
         input >> function; 
-        mu::Parser pf; 
-            /*
-            for(int i = 0 ; i < dimensions; i++){
-                cout << center[i] << endl;
-            }
-            */
-            //it's necessary to reserve enough space for the vector
+        
         cord.reserve(dimensions);
         cord.resize(dimensions);
         
@@ -77,8 +71,8 @@ public:
         }
         
         double getVolume() {
-            return (std::pow(r,dimensions) * std::pow(M_PI, dimensions/2.0)) / std::tgamma((dimensions/2.0)+1.0);
-        }
+            return (std::pow(r,dimensions) * std::pow(M_PI, dimensions/2.0))/ std::tgamma((dimensions/2.0)+1.0);
+        } //
 
        double generateRandomPoint(){
             sum = 0; 
@@ -105,6 +99,10 @@ public:
         }
         vector<double> getPoint(){
             return point;
+        }
+
+        string getFunction(){
+            return function;
         }
 
     };

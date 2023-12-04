@@ -18,6 +18,7 @@ using namespace std;
         vector<Edges> cord; 
         mt19937 re{random_device{}()};
         vector<double> point;
+        string function;
 
         public:
         //da modificare
@@ -49,5 +50,8 @@ using namespace std;
         }
         vector<double> getPoint(){
             return point;
+        }
+        string getFunction(){
+            return function;
         }
     };

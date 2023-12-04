@@ -26,5 +26,6 @@ class Domain {
     virtual double getVolume() = 0; 
     virtual double generateRandomPoint() = 0;
     virtual vector<double> getPoint() = 0;
+    virtual string getFunction() = 0;
 };
 #endif //MONTECARLO_H
