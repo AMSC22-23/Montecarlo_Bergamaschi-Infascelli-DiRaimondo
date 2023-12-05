@@ -13,7 +13,9 @@ public:
 
     double integrate(unique_ptr<Domain> &, int);
     
-    double getIntegral(){
+    double 
+    getIntegral()
+    {
         return integral;
     }
 };
@@ -32,7 +34,7 @@ double MontecarloIntegration::integrate(unique_ptr<Domain> &d, int samples){
     string start = "x";
     string num;
 
-    mu::Parser pf; 
+    mu::Parser pf;
     pf.SetExpr(d->getFunction());
 
     double somma = 0;
@@ -53,9 +55,6 @@ double MontecarloIntegration::integrate(unique_ptr<Domain> &d, int samples){
         }
         //se non sono entrata nell'if significa che il punto non sta nel dominio
     }
-
-
-
-
-    return (somma) * (d->getVolume()) / samples; 
+    //anziché moltiplicare qui per il volume, moltiplico solo una volta nel main
+    return somma; 
 }

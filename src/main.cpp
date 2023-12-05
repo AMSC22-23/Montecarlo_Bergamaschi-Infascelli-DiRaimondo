@@ -7,6 +7,7 @@
 #include "Domain.hpp"
 #include <memory>
 #include "muParser.h"
+#include "omp.h"
 
 
 
@@ -19,7 +20,7 @@ int main(int argc, char** argv){
 
     //at least one parameter for the main, one for the input, one for the type of the domain
     // and another one for the numSamples
-    if(argc < 4){
+    if(argc < 5){
         cout << "Not enough parameters as input" << endl;
         return -1;
     }
@@ -51,10 +52,19 @@ int main(int argc, char** argv){
     MontecarloIntegration m;
     //da sistemare, bisogna aggiungere funzione e dominio
 
-    double res = m.integrate(d ,numSamples);
-    cout << "The integral of the function using Montecarlo integration is " << endl;
-    cout << res << endl;
-  //  d.release();
+    double res = 0.0;
+    int numProcessors = atoi(argv[4]);
+
+    //I use reduction to be sure that res will be updated correctly by each thread
+    #pragma omp parallel reduction(+:res)
+    {
+        //this directive 
+        #pragma omp for
+        for(int i = 0; i < numSamples; i++)
+            res += m.integrate(d ,1);
+    } 
+
+    cout << "The parallel version of the integral is: " << res * (d->getVolume() / (numSamples)) << endl;
 
     return 0;
 } 
