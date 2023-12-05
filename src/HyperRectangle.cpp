@@ -36,10 +36,16 @@ using namespace std;
                 cout << "The value of the dimension is not valid" << endl;
                 exit(-1);
             }
+
+            cord.reserve(dimensions);
+            cord.resize(dimensions);
+
             for(int i=0; i < dimensions ; i++){
                 input >> cord[i].x; 
                 input >> cord[i].y; 
             }
+            input >> function;
+            
         }
 
         int getDimensionDomain() {
@@ -51,7 +57,7 @@ using namespace std;
             for(int i=0; i < dimensions; i++){
                 totVol = totVol * abs(cord[i].x-cord[i].y); 
             }
-            return 0;
+            return totVol;
         }
         double generateRandomPoint(){     
             

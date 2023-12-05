@@ -7,6 +7,7 @@
 #include <random>
 #include "Domain.hpp" 
 #include "muParser.h"
+#include "omp.h"
 
 using namespace std;
 using namespace mu; 
@@ -77,27 +78,27 @@ public:
         
     double getVolume() {
         return (std::pow(r,dimensions) * std::pow(M_PI, dimensions/2.0))/ std::tgamma((dimensions/2.0)+1.0);
-    }
+    } 
 
     double generateRandomPoint(){
-        sum = 0; 
+        sum = 0; //
         point.reserve(dimensions);
         point.resize(dimensions);
         
         //this is to generate a random number (inside the hypercube)
 
-      //  #pragma omp parallel reduction(+:sum)
+        #pragma omp parallel reduction(+:sum)
       //bisogna rendere tutto thread safe perché altrimenti c'è il rischio che più thread creino gli stessi punti
-        for(int j = 0; j < dimensions; j++){
-            uniform_real_distribution<double> distribution(cord[j].x, cord[j].y);
-            point[j] = distribution(re);
-            sum += (point[j]-center[j])*(point[j]-center[j]);
-        }
+            for(int j = 0; j < dimensions; j++){
+                uniform_real_distribution<double> distribution(cord[j].x, cord[j].y);
+                point[j] = distribution(re);
+                sum += (point[j]-center[j])*(point[j]-center[j]);
+            }
         if(sum > r*r){ 
             return -1;
         } 
         return sum;
-    }
+    } //
 
     double getRadius(){
         return r; 
