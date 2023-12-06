@@ -1,39 +1,9 @@
-#include <iostream>
-#include <vector>
-#include <string> 
-#include <cmath>
-#include <cstdlib>
-#include <fstream>
-#include <random>
-#include "Domain.hpp" 
-#include "muParser.h"
-#include "omp.h"
+#include "HyperSphere.hpp"
 
-using namespace std;
-using namespace mu; 
-
-struct Range {
-    double x,y; 
-}; 
-
-class HyperSphere : public Domain {
-private:
-    double r = 0.0;   //radius
-    vector<double> center;
-    int dimensions = 0, numIn=0, numTot=0;
-    double x,sum; 
-    double rv = 0.0;
-    mt19937 re{random_device{}()};
-    vector<Range> cord;
-    vector<double> point;
-    string function; 
-    double var_x; 
-
-
-public:
-    //constructor of the HyperSphere
-    HyperSphere(const string inputFile){
-        ifstream input(inputFile);
+//constructor of the HyperSphere
+HyperSphere::HyperSphere(const string inputFile)
+{
+    ifstream input(inputFile);
 
     if (!input.is_open()) {
         cout << "Error opening input file: " << inputFile << endl;
@@ -69,48 +39,58 @@ public:
         cord[i].x = center[i] - r; 
         cord[i].y = center[i] + r;
     }
+}
 
-    }
-
-    int getDimensionDomain() {
-        return dimensions;
-    }
+int 
+HyperSphere::getDimensionDomain() 
+{
+    return dimensions;
+}
         
-    double getVolume() {
-        return (std::pow(r,dimensions) * std::pow(M_PI, dimensions/2.0))/ std::tgamma((dimensions/2.0)+1.0);
+double
+HyperSphere::getVolume() 
+{
+    return (std::pow(r,dimensions) * std::pow(M_PI, dimensions/2.0))/ std::tgamma((dimensions/2.0)+1.0);
+} 
+
+double
+HyperSphere::generateRandomPoint()
+{
+    sum = 0; 
+    point.reserve(dimensions);
+    point.resize(dimensions);
+        
+    //this is to generate a random number (inside the hypercube)
+
+    #pragma omp parallel reduction(+:sum)
+    //bisogna rendere tutto thread safe perché altrimenti c'è il rischio che più thread creino gli stessi punti
+        for(int j = 0; j < dimensions; j++){
+            uniform_real_distribution<double> distribution(cord[j].x, cord[j].y);
+            point[j] = distribution(re);
+            sum += (point[j]-center[j])*(point[j]-center[j]);
+        }
+    if(sum > r*r){ 
+        return -1;
     } 
+    return sum;
+} //
 
-    double generateRandomPoint(){
-        sum = 0; //
-        point.reserve(dimensions);
-        point.resize(dimensions);
-        
-        //this is to generate a random number (inside the hypercube)
+double 
+HyperSphere::getRadius()
+{
+    return r; 
+}
 
-        #pragma omp parallel reduction(+:sum)
-      //bisogna rendere tutto thread safe perché altrimenti c'è il rischio che più thread creino gli stessi punti
-            for(int j = 0; j < dimensions; j++){
-                uniform_real_distribution<double> distribution(cord[j].x, cord[j].y);
-                point[j] = distribution(re);
-                sum += (point[j]-center[j])*(point[j]-center[j]);
-            }
-        if(sum > r*r){ 
-            return -1;
-        } 
-        return sum;
-    } //
+vector<double> 
+HyperSphere::getPoint()
+{
+    return point;
+}
 
-    double getRadius(){
-        return r; 
-    }
+string 
+HyperSphere::getFunction()
+{
+    return function;
+}
 
-    vector<double> getPoint(){
-        return point;
-    }
-
-    string getFunction(){
-        return function;
-    }
-
-};
 

@@ -4,8 +4,8 @@
 #include <cstdlib>
 #include <random>
 
-#ifndef MONTECARLO_H
-#define MONTECARLO_H
+#ifndef DOMAIN_HPP
+#define DOMAIN_HPP
 
 using namespace std;
 class Domain {
@@ -28,4 +28,4 @@ class Domain {
     virtual vector<double> getPoint() = 0;
     virtual string getFunction() = 0;
 };
-#endif //MONTECARLO_H
+#endif //DOMAIN_H

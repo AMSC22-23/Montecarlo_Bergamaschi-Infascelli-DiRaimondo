@@ -20,7 +20,7 @@ int main(int argc, char** argv){
 
     //at least one parameter for the main, one for the input, one for the type of the domain
     // and another one for the numSamples
-    if(argc < 5){
+    if(argc < 4){
         cout << "Not enough parameters as input" << endl;
         return -1;
     }
@@ -53,7 +53,6 @@ int main(int argc, char** argv){
     //da sistemare, bisogna aggiungere funzione e dominio
 
     double res = 0.0;
-    int numProcessors = atoi(argv[4]);
 
     //I use reduction to be sure that res will be updated correctly by each thread
     #pragma omp parallel reduction(+:res)

@@ -1,83 +1,71 @@
-#include <iostream>
-#include <vector>
-#include <string> 
-#include <cmath>
-#include <cstdlib>
-#include "Domain.hpp"
-#include  <fstream>
+#include "HyperRectangle.hpp"
 
-using namespace std; 
-    struct Edges {
-        double x,y; 
-    }; 
+HyperRectangle::HyperRectangle(string inputFile)
+{
+    ifstream input(inputFile);
+    if (!input.is_open()) {
+        cout << "Error opening input file: " << inputFile << endl;
+        exit(-1);
+    }
 
-    class HyperRectangle : public Domain{
-
-        private:
-        int dimensions; 
-        vector<Edges> cord; 
-        mt19937 re{random_device{}()};
-        vector<double> point;
-        string function;
-
-        public:
-        //da modificare
-
-        HyperRectangle(string inputFile){
-            ifstream input(inputFile);
-            if (!input.is_open()) {
-                cout << "Error opening input file: " << inputFile << endl;
-                exit(-1);
-            }
-
-            input >> dimensions; 
+    input >> dimensions; 
                 
-            if(dimensions <= 0){
-                cout << "The value of the dimension is not valid" << endl;
-                exit(-1);
-            }
+    if(dimensions <= 0){
+        cout << "The value of the dimension is not valid" << endl;
+        exit(-1);
+    }
 
-            cord.reserve(dimensions);
-            cord.resize(dimensions);
+    cord.reserve(dimensions);
+    cord.resize(dimensions);
 
-            for(int i=0; i < dimensions ; i++){
-                input >> cord[i].x; 
-                input >> cord[i].y; 
-            }
-            input >> function;
-            
-        }
+    for(int i = 0; i < dimensions ; i++){
+        input >> cord[i].x; 
+        input >> cord[i].y; 
+    }
+    input >> function;   
+}
 
-        int getDimensionDomain() {
-            return dimensions;
-        }
+int 
+HyperRectangle::getDimensionDomain() 
+{
+    return dimensions;
+}
         
-        double getVolume()  {
-            double totVol = 1; 
-            for(int i=0; i < dimensions; i++){
-                totVol = totVol * abs(cord[i].x-cord[i].y); 
-            }
-            return totVol;
-        }
-        double generateRandomPoint(){     
-            
-            point.reserve(dimensions);
-            point.resize(dimensions);
-        
-            //this is to generate a random number (inside the hypercube)
+double 
+HyperRectangle::getVolume()  
+{
+    double totVol = 1; 
+    for(int i = 0; i < dimensions; i++){
+        totVol = totVol * abs(cord[i].x - cord[i].y); 
+    }
+    return totVol;
+}
 
-        //  #pragma omp parallel reduction(+:sum)
-        //bisogna rendere tutto thread safe perché altrimenti c'è il rischio che più thread creino gli stessi punti
-            for(int j = 0; j < dimensions; j++){
-                uniform_real_distribution<double> distribution(cord[j].x, cord[j].y);
-                point[j] = distribution(re);
-            }
-            return 1; 
-        }
-        vector<double> getPoint(){
-            return point;
-        }
-        string getFunction(){
-            return function;
-        }
-    };
+double 
+HyperRectangle::generateRandomPoint()
+{     
+    point.reserve(dimensions);
+    point.resize(dimensions);
+        
+    //this is to generate a random number (inside the hypercube)
+
+    //  #pragma omp parallel reduction(+:sum)
+    //bisogna rendere tutto thread safe perché altrimenti c'è il rischio che più thread creino gli stessi punti
+    for(int j = 0; j < dimensions; j++){
+        uniform_real_distribution<double> distribution(cord[j].x, cord[j].y);
+        point[j] = distribution(re);
+    }
+    return 1; 
+}
+vector<double> 
+HyperRectangle::getPoint()
+{
+    return point;
+}
+
+string 
+HyperRectangle::getFunction()
+{
+    return function;
+}
+

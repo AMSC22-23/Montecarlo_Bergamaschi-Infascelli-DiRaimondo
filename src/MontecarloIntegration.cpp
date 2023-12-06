@@ -3,6 +3,8 @@
 #include <random>
 #include <string>
 #include "Domain.hpp"
+#include <memory>
+#include "muParser.h"
 using namespace std;
 
 class MontecarloIntegration{
