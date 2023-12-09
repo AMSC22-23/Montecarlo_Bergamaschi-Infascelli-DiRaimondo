@@ -14,20 +14,12 @@
 using namespace std;
 
 class HyperSphere : public Domain{
-
-struct Range {
-    double x,y; 
-}; 
     private:
         double r = 0.0;   //radius
         vector<double> center;
-        int dimensions = 0, numIn=0, numTot=0;
         double x,sum; 
         double rv = 0.0;
-        mt19937 re{random_device{}()};
-        vector<Range> cord;
-        vector<double> point;
-        string function; 
+        vector<Coordinates> cord;
         double var_x; 
 
     public:

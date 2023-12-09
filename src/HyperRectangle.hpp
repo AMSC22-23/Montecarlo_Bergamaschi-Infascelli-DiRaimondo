@@ -6,22 +6,17 @@
 #include <string> 
 #include <cmath>
 #include <cstdlib>
+#include "omp.h"
 #include "Domain.hpp"
 #include  <fstream>
 
 using namespace std;
 
 class HyperRectangle : public Domain{
-    struct Edges {
-        double x,y; 
-    }; 
 
     private:
-        int dimensions; 
-        vector<Edges> cord; 
-        mt19937 re{random_device{}()};
-        vector<double> point;
-        string function;
+        vector<Coordinates> cord; 
+        
     public:
     HyperRectangle(string inputFile);
 

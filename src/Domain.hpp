@@ -1,24 +1,32 @@
+#ifndef DOMAIN_HPP
+#define DOMAIN_HPP
+
 #include <iostream>
 #include <vector>
 #include <cmath>
 #include <cstdlib>
 #include <random>
 
-#ifndef DOMAIN_HPP
-#define DOMAIN_HPP
-
 using namespace std;
 class Domain {
-    
-    private : 
-    int nDimension; 
+
+    protected:
+    mt19937 re{random_device{}()};
+    int dimensions = 0;
+    string function; 
+    vector<double> point;
+
+
+    struct Coordinates {
+        double x,y; 
+    }; 
 
     public : 
 
     Domain() = default; 
 
     Domain(int nDim){
-        nDimension = nDim; 
+        dimensions = nDim; 
     };
     virtual ~Domain() = default;
 

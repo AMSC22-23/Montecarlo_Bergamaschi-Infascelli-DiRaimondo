@@ -34,11 +34,18 @@ HyperSphere::HyperSphere(const string inputFile)
         
     cord.reserve(dimensions);
     cord.resize(dimensions);
-        
+
+    #pragma omp parallel for num_threads(dimensions) shared(r,cord)
     for(int i=0; i < dimensions ; i++){
+        //chiedere giovedì se parallelizzare anche queste due
         cord[i].x = center[i] - r; 
         cord[i].y = center[i] + r;
+
+        //da togliere
+    //    #pragma omp critical
+   //     cout << omp_get_thread_num() << " " << i << " " << cord[i].x << " " <<cord[i].y << endl;
     }
+    #pragma omp barrier
 }
 
 int 
@@ -62,7 +69,6 @@ HyperSphere::generateRandomPoint()
         
     //this is to generate a random number (inside the hypercube)
 
-    #pragma omp parallel reduction(+:sum)
     //bisogna rendere tutto thread safe perché altrimenti c'è il rischio che più thread creino gli stessi punti
         for(int j = 0; j < dimensions; j++){
             uniform_real_distribution<double> distribution(cord[j].x, cord[j].y);
@@ -73,7 +79,7 @@ HyperSphere::generateRandomPoint()
         return -1;
     } 
     return sum;
-} //
+}
 
 double 
 HyperSphere::getRadius()

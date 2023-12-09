@@ -1,18 +1,20 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include "HyperRectangle.cpp"
-#include "HyperSphere.cpp"
-#include "MontecarloIntegration.cpp"    //da cambiare con hpp?
-#include "Domain.hpp"
+#include <chrono>
 #include <memory>
+#include "HyperRectangle.hpp" //hpp o cpp
+#include "HyperSphere.hpp"
+#include "MontecarloIntegration.cpp"
+#include "Domain.hpp"
 #include "muParser.h"
 #include "omp.h"
 
-
-
 using namespace std;
+
 int main(int argc, char** argv){
+    auto start = std::chrono::high_resolution_clock::now();
+
     int type_domain = 0;
     int numSamples = 0;
     double x; 
@@ -47,23 +49,22 @@ int main(int argc, char** argv){
         cout << "Invalid parameter for the number of samples" << endl;
         return -1;
     }
-   
 
     MontecarloIntegration m;
-    //da sistemare, bisogna aggiungere funzione e dominio
 
     double res = 0.0;
 
     //I use reduction to be sure that res will be updated correctly by each thread
-    #pragma omp parallel reduction(+:res)
-    {
-        //this directive 
-        #pragma omp for
-        for(int i = 0; i < numSamples; i++)
+    #pragma omp parallel for reduction(+:res)
+        for(int i = 0; i < numSamples; i++){
             res += m.integrate(d ,1);
-    } 
+        }
+    #pragma omp barrier
 
     cout << "The parallel version of the integral is: " << res * (d->getVolume() / (numSamples)) << endl;
 
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> elapsed_seconds = end - start;
+    std::cout << "Tempo trascorso: " << elapsed_seconds.count() << " secondi\n";
     return 0;
 } 

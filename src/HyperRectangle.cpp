@@ -30,14 +30,20 @@ HyperRectangle::getDimensionDomain()
 {
     return dimensions;
 }
-        
+
 double 
 HyperRectangle::getVolume()  
 {
     double totVol = 1; 
+
+    #pragma omp parallel for num_threads(dimensions) shared(cord)
     for(int i = 0; i < dimensions; i++){
+        //vedere se atomic è necessario
+        #pragma omp atomic
         totVol = totVol * abs(cord[i].x - cord[i].y); 
     }
+    #pragma omp barrier
+
     return totVol;
 }
 
@@ -47,14 +53,12 @@ HyperRectangle::generateRandomPoint()
     point.reserve(dimensions);
     point.resize(dimensions);
         
-    //this is to generate a random number (inside the hypercube)
-
-    //  #pragma omp parallel reduction(+:sum)
-    //bisogna rendere tutto thread safe perché altrimenti c'è il rischio che più thread creino gli stessi punti
+    //this for takes 1 element for each coordinate of a single point
     for(int j = 0; j < dimensions; j++){
         uniform_real_distribution<double> distribution(cord[j].x, cord[j].y);
         point[j] = distribution(re);
     }
+
     return 1; 
 }
 vector<double> 
