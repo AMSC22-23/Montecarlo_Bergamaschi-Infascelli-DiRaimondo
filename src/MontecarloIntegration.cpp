@@ -39,18 +39,17 @@ double MontecarloIntegration::integrate(unique_ptr<Domain> &d, int samples){
     pf.SetExpr(d->getFunction());
 
     double somma = 0;
-    if(d->generateRandomPoint() != -1){
-        point = d->getPoint();
-        for(int h = 1; h <= d->getDimensionDomain(); h++) {
-            start = "x";
-            num = to_string(h);
-            start = start + num;
-            pf.DefineVar(start,&point[h-1]);
-        }  
-        somma+= pf.Eval();
-    }
-        //se non sono entrata nell'if significa che il punto non sta nel dominio
-    
+
+    while(d->generateRandomPoint() == -1);
+    point = d->getPoint();
+    for(int h = 1; h <= d->getDimensionDomain(); h++) {
+        start = "x";
+        num = to_string(h);
+        start = start + num;
+        pf.DefineVar(start,&point[h-1]);
+    }  
+    somma+= pf.Eval();
+    //se non sono entrata nell'if significa che il punto non sta nel dominio
     //anziché moltiplicare qui per il volume, moltiplico solo una volta nel main
     return somma; 
 }
