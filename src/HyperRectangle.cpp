@@ -36,13 +36,9 @@ HyperRectangle::getVolume()
 {
     double totVol = 1; 
 
-    #pragma omp parallel for num_threads(dimensions) shared(cord)
     for(int i = 0; i < dimensions; i++){
-        //vedere se atomic è necessario
-        #pragma omp atomic
         totVol = totVol * abs(cord[i].x - cord[i].y); 
     }
-    #pragma omp barrier
 
     return totVol;
 }

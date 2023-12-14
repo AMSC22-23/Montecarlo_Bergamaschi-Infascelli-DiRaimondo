@@ -21,6 +21,7 @@ set(SOURCES
     src/HyperSphere.cpp
     src/HyperRectangle.cpp
     src/MontecarloIntegration.cpp
+    src/MontecarloIntegration.hpp
 )
 
 add_executable(MONTECARLO_BERGAMASCHI-INFASCELLI-DIRAIMONDO ${SOURCES})

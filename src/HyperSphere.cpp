@@ -35,17 +35,11 @@ HyperSphere::HyperSphere(const string inputFile)
     cord.reserve(dimensions);
     cord.resize(dimensions);
 
-    #pragma omp parallel for num_threads(dimensions) shared(r,cord)
     for(int i=0; i < dimensions ; i++){
-        //chiedere giovedì se parallelizzare anche queste due
         cord[i].x = center[i] - r; 
         cord[i].y = center[i] + r;
 
-        //da togliere
-    //    #pragma omp critical
-   //     cout << omp_get_thread_num() << " " << i << " " << cord[i].x << " " <<cord[i].y << endl;
     }
-    #pragma omp barrier
 }
 
 int 

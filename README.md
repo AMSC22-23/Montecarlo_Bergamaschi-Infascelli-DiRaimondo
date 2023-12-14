@@ -9,6 +9,11 @@ In order to compile the program, follow these simple steps:
     make
     export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/jellyfish/shared-folder/Montecarlo_Bergamaschi-Infascelli-DiRaimondo/muparser-2.3.4
 
+## MuParser library
+The MuParser library is a math library used to do the parsing of mathematical expressions and it is written in C++. It works by transforming a mathematical expression into bytecode and precalculating constant parts of the expression. 
+For more information:
+    https://beltoforion.de/en/muparser/
+
 ## Input argument
 ./main nomeFile.txt x y
 

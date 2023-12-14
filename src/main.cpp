@@ -3,9 +3,9 @@
 #include <string>
 #include <chrono>
 #include <memory>
-#include "HyperRectangle.hpp" //hpp o cpp
+#include "HyperRectangle.hpp"
 #include "HyperSphere.hpp"
-#include "MontecarloIntegration.cpp"
+#include "MontecarloIntegration.hpp"
 #include "Domain.hpp"
 #include "muParser.h"
 #include "omp.h"
@@ -59,7 +59,6 @@ int main(int argc, char** argv){
         for(int i = 0; i < numSamples; i++){
             res += m.integrate(d ,1);
         }
-    #pragma omp barrier
 
     cout << "The parallel version of the integral is: " << res * (d->getVolume() / (numSamples)) << endl;
 
