@@ -64,6 +64,17 @@ int main(int argc, char** argv){
 
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> elapsed_seconds = end - start;
+
+    if(type_domain == 0){
+        std::cout << "Type domain: Hypersphere" << std::endl;
+    }
+    else{       
+        std::cout << "Type domain: Hyperrectangle" << std::endl;
+    }
+    std::cout << "Number of samples: " << numSamples << std::endl;
+    std::cout << "Dimesion: " << d->getDimensionDomain() << std::endl;
+    std::cout << "Volume: " << d->getVolume() << std::endl;
+    std::cout << "Volume: " << d->getFunction() << std::endl;
     std::cout << "Tempo trascorso: " << elapsed_seconds.count() << " secondi\n";
     return 0;
 } 

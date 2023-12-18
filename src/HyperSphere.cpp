@@ -6,22 +6,18 @@ HyperSphere::HyperSphere(const std::string inputFile)
     std::ifstream input(inputFile);
 
     if (!input.is_open()) {
-        std::cout << "Error opening input file: " << inputFile << std::endl;
-        exit(-1);
+        throw std::runtime_error("Error opening input file: "+ inputFile);
     }
 
     input >> dimensions; 
     input >> r; 
 
     if(r <= 0.0){
-        std::cout << "The value of the radius is not valid " << std::endl;
-        std::cout << "The radius is:" << r << std::endl;
-        exit(-1);
+        throw std::invalid_argument("The value of the radius is not valid");
     }
         
     if(dimensions <= 0){
-        std::cout << "The value of the dimension is not valid" << std::endl;
-        exit(-1);
+        throw std::invalid_argument("The value of the dimension is not valid");
     }
 
     //this for loop is used in order to take the coordinates of the center
