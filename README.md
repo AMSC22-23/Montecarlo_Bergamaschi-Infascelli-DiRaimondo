@@ -4,7 +4,7 @@
 In order to compile the program, follow these simple steps:
 1. Download the git repository and type cd Montecarlo
 2. type cd Montecarlo_Bergamaschi-Infascelli-DiRaimondo/
-3. type cd cd muparser-2.3.4/ and use the following commands:
+3. type cd muparser-2.3.4/ and use the following commands:
     cmake . -DENABLE_SAMPLES=OFF -DENABLE_OPENMP=ON -DENABLE_WIDE_CHAR=OFF -DBUILD_SHARED_LIBS=ON
     make
     export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/jellyfish/shared-folder/Montecarlo_Bergamaschi-Infascelli-DiRaimondo/muparser-2.3.4

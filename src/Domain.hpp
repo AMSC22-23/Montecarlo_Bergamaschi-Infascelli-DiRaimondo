@@ -35,4 +35,4 @@ class Domain {
     virtual const std::vector<double> getPoint() = 0;
     virtual const std::string getFunction() = 0;
 };
-#endif //DOMAIN_H
+#endif

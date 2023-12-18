@@ -10,8 +10,7 @@ HyperRectangle::HyperRectangle(std::string inputFile)
     input >> dimensions; 
                 
     if(dimensions <= 0){
-        std::cout << "The value of the dimension is not valid" << std::endl;
-        exit(-1);
+        throw std::invalid_argument("The value of the dimension is not valid");
     }
 
     cord.reserve(dimensions);
