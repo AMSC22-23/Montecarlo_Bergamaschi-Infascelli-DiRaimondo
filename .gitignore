@@ -4,5 +4,5 @@
 ### Mac OS ###
 .DS_Store
 
-
+### Ignore IntelliJ IDEA folders
 .idea/

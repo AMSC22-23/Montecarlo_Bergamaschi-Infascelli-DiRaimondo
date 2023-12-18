@@ -10,30 +10,28 @@
 #include "Domain.hpp"
 #include  <fstream>
 
-using namespace std;
-
 class HyperRectangle : public Domain{
 
     private:
-        vector<Coordinates> cord; 
+        std::vector<Coordinates> cord; 
         
     public:
-    HyperRectangle(string inputFile);
+    HyperRectangle(const std::string inputFile);
 
     int 
-    getDimensionDomain();
+    const getDimensionDomain();
 
     double
-    getVolume();
+    const getVolume();
 
     double
     generateRandomPoint();
 
-    vector<double>
-    getPoint();
+    std::vector<double>
+    const getPoint();
 
-    string 
-    getFunction();
+    std::string 
+    const getFunction();
 
 };
 #endif

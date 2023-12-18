@@ -1,17 +1,18 @@
 #include "HyperRectangle.hpp"
 
-HyperRectangle::HyperRectangle(string inputFile)
+HyperRectangle::HyperRectangle(std::string inputFile)
 {
-    ifstream input(inputFile);
+    std::ifstream input(inputFile);
     if (!input.is_open()) {
-        cout << "Error opening input file: " << inputFile << endl;
-        exit(-1);
+      //  std::cout << "Error opening input file: " << inputFile << std::endl;
+     //  exit(-1);
+        throw std::runtime_error("Error opening input file: "+ inputFile);
     }
 
     input >> dimensions; 
                 
     if(dimensions <= 0){
-        cout << "The value of the dimension is not valid" << endl;
+        std::cout << "The value of the dimension is not valid" << std::endl;
         exit(-1);
     }
 
@@ -26,18 +27,18 @@ HyperRectangle::HyperRectangle(string inputFile)
 }
 
 int 
-HyperRectangle::getDimensionDomain() 
+const HyperRectangle::getDimensionDomain() 
 {
     return dimensions;
 }
 
 double 
-HyperRectangle::getVolume()  
+const HyperRectangle::getVolume()  
 {
     double totVol = 1; 
 
     for(int i = 0; i < dimensions; i++){
-        totVol = totVol * abs(cord[i].x - cord[i].y); 
+        totVol = totVol * std::abs(cord[i].x - cord[i].y); 
     }
 
     return totVol;
@@ -51,20 +52,20 @@ HyperRectangle::generateRandomPoint()
         
     //this for takes 1 element for each coordinate of a single point
     for(int j = 0; j < dimensions; j++){
-        uniform_real_distribution<double> distribution(cord[j].x, cord[j].y);
+        std::uniform_real_distribution<double> distribution(cord[j].x, cord[j].y);
         point[j] = distribution(re);
     }
 
     return 1; 
 }
-vector<double> 
-HyperRectangle::getPoint()
+std::vector<double> 
+const HyperRectangle::getPoint()
 {
     return point;
 }
 
-string 
-HyperRectangle::getFunction()
+std::string 
+const HyperRectangle::getFunction()
 {
     return function;
 }

@@ -11,25 +11,23 @@
 #include "Domain.hpp"
 #include "omp.h"
 
-using namespace std;
-
 class HyperSphere : public Domain{
     private:
         double r = 0.0;   //radius
-        vector<double> center;
+        std::vector<double> center;
         double x,sum; 
         double rv = 0.0;
-        vector<Coordinates> cord;
+        std::vector<Coordinates> cord;
         double var_x; 
 
     public:
-        HyperSphere(const string inputFile);
+        HyperSphere(const std::string inputFile);
 
         int 
-        getDimensionDomain();
+        const getDimensionDomain();
 
         double
-        getVolume();
+        const getVolume();
 
         double
         generateRandomPoint();
@@ -37,11 +35,11 @@ class HyperSphere : public Domain{
         double
         getRadius();
 
-        vector<double>
-        getPoint();
+        std::vector<double>
+        const getPoint();
 
-        string
-        getFunction();
+        std::string
+        const getFunction();
 
 };
 #endif
