@@ -1,8 +1,8 @@
 ### VS Code ###
 .vscode/
 
-### Mac OS ###
-.DS_Store
-
 ### Ignore IntelliJ IDEA folders
 .idea/
+
+### Mac OS ###
+.DS_Store
