@@ -4,8 +4,6 @@ HyperRectangle::HyperRectangle(std::string inputFile)
 {
     std::ifstream input(inputFile);
     if (!input.is_open()) {
-      //  std::cout << "Error opening input file: " << inputFile << std::endl;
-     //  exit(-1);
         throw std::runtime_error("Error opening input file: "+ inputFile);
     }
 

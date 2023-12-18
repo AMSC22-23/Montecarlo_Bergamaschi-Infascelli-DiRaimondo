@@ -16,8 +16,7 @@ class Domain {
     std::string function; 
     std::vector<double> point;
 
-
-    struct Coordinates {
+    struct PuntiAssi {
         double x,y; 
     }; 
 

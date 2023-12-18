@@ -13,7 +13,7 @@
 class HyperRectangle : public Domain{
 
     private:
-        std::vector<Coordinates> cord; 
+        std::vector<PuntiAssi> cord; 
         
     public:
     HyperRectangle(const std::string inputFile);

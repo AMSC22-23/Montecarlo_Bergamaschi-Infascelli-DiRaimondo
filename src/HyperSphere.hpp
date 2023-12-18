@@ -17,7 +17,7 @@ class HyperSphere : public Domain{
         std::vector<double> center;
         double x,sum; 
         double rv = 0.0;
-        std::vector<Coordinates> cord;
+        std::vector<PuntiAssi> cord;
         double var_x; 
 
     public:
