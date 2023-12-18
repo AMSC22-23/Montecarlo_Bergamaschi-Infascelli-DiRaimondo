@@ -18,8 +18,10 @@ class HyperRectangle : public Domain{
         vector<Coordinates> cord; 
         
     public:
+    //@note: shoudl pass by const reference
     HyperRectangle(string inputFile);
 
+    //@note: should be const (and other below)
     int 
     getDimensionDomain();
 

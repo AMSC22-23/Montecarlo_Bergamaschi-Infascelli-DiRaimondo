@@ -23,23 +23,29 @@ class HyperSphere : public Domain{
         double var_x; 
 
     public:
+        //@note: shoudl pass by const reference
         HyperSphere(const string inputFile);
 
+        //@note: should be const
         int 
         getDimensionDomain();
 
+        //@note: should be const
         double
         getVolume();
 
         double
         generateRandomPoint();
 
+        //@note: should be const
         double
         getRadius();
 
+        //@note: should be const
         vector<double>
         getPoint();
-
+        
+        //@note: should be const
         string
         getFunction();
 
