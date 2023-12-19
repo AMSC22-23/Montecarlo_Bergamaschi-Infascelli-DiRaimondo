@@ -4,11 +4,23 @@
 In order to compile the program, follow these simple steps:
 1. Download the git repository and type cd Montecarlo
 2. type cd Montecarlo_Bergamaschi-Infascelli-DiRaimondo/
-3. type cd cd muparser-2.3.4/ and use the following commands:
-    cmake . -DENABLE_SAMPLES=OFF -DENABLE_OPENMP=ON -DENABLE_WIDE_CHAR=OFF -DBUILD_SHARED_LIBS=ON
-    make
-    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/jellyfish/shared-folder/Montecarlo_Bergamaschi-Infascelli-DiRaimondo/muparser-2.3.4
-
+3. type cd `muparser/` and use the following commands:
+```bash
+    mkdir build
+    cd build
+    cmake .. -DCMAKE_INSTALL_PREFIX="" -DENABLE_SAMPLES=OFF -DENABLE_OPENMP=ON -DENABLE_WIDE_CHAR=OFF -DBUILD_SHARED_LIBS=ON
+    make -j<N>
+    make DESTDIR="$PWD/.." install
+    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PWD/../lib
+```
+4. compile the project, in the home of the repo
+```bash
+    mkdir build
+    cd build
+    cmake ..
+    make -j<N>
+    make DESTDIR="$PWD/.." install
+```
 ## MuParser library
 The MuParser library is a math library used to do the parsing of mathematical expressions and it is written in C++. It works by transforming a mathematical expression into bytecode and precalculating constant parts of the expression. 
 For more information:

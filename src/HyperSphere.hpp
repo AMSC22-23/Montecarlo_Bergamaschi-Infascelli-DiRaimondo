@@ -11,28 +11,31 @@
 #include "Domain.hpp"
 #include "omp.h"
 
-using namespace std;
-
 class HyperSphere : public Domain{
     private:
         double r = 0.0;   //radius
-        vector<double> center;
+        std::vector<double> center;
         double x,sum; 
         double rv = 0.0;
-        vector<Coordinates> cord;
+        std::vector<PuntiAssi> cord;
         double var_x; 
 
     public:
-        //@note: shoudl pass by const reference
-        HyperSphere(const string inputFile);
+        //@note: shoudl pass by const **reference**
+        HyperSphere(const std::string inputFile);
 
         //@note: should be const
+        //       the method should be const, not the returned object
+        //       In the current way you are just saying that what you return is a const
+        //       which does not really add much
+        //       If you make the method const (`const` after the name), you make it so that
+        //       the method cannot change the class, which is a good constraint for many cases
         int 
-        getDimensionDomain();
+        const getDimensionDomain();
 
         //@note: should be const
         double
-        getVolume();
+        const getVolume();
 
         double
         generateRandomPoint();
@@ -42,12 +45,12 @@ class HyperSphere : public Domain{
         getRadius();
 
         //@note: should be const
-        vector<double>
-        getPoint();
-        
+        std::vector<double>
+        const getPoint();
+
         //@note: should be const
-        string
-        getFunction();
+        std::string
+        const getFunction();
 
 };
 #endif

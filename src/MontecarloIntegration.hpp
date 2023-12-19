@@ -8,7 +8,7 @@
 #include "Domain.hpp"
 #include <memory>
 #include "muParser.h"
-
+//
 class MontecarloIntegration{
     private:
     double integral = 0.0;
@@ -17,9 +17,9 @@ class MontecarloIntegration{
     
     //@note: should be const
     double 
-    getIntegral();
+    const getIntegral();
 
     double 
-    integrate(unique_ptr<Domain> &d, int samples);
+    integrate(std::unique_ptr<Domain> &d, int samples);
 };
 #endif

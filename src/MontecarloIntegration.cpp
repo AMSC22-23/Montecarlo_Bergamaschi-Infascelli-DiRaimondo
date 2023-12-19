@@ -1,22 +1,20 @@
 #include "MontecarloIntegration.hpp"
 
-using namespace std;
 
-double MontecarloIntegration::getIntegral()
+double const MontecarloIntegration::getIntegral()
 {
     return integral;
 }
-//
 
-double MontecarloIntegration::integrate(unique_ptr<Domain> &d, int samples)
+double MontecarloIntegration::integrate(std::unique_ptr<Domain> &d, int samples)
 {
     
     double sum =0 ; 
-    vector<double> point; 
+    std::vector<double> point; 
     double volume = 0.0; //gli passo il volume della forma geometrica
 
-    string start = "x";
-    string num;
+    std::string start = "x";
+    std::string num;
 
     mu::Parser pf;
     pf.SetExpr(d->getFunction());
@@ -25,9 +23,11 @@ double MontecarloIntegration::integrate(unique_ptr<Domain> &d, int samples)
 
     while(d->generateRandomPoint() == -1);
     point = d->getPoint();
+    //@note: muparserx natively supports arrays
+    //       also the definition of variables could be done just once
     for(int h = 1; h <= d->getDimensionDomain(); h++) {
         start = "x";
-        num = to_string(h);
+        num = std::to_string(h);
         start = start + num;
         pf.DefineVar(start,&point[h-1]);
     }  

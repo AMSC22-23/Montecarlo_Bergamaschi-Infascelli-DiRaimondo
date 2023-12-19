@@ -1,27 +1,23 @@
 #include "HyperSphere.hpp"
 
 //constructor of the HyperSphere
-HyperSphere::HyperSphere(const string inputFile)
+HyperSphere::HyperSphere(const std::string inputFile)
 {
-    ifstream input(inputFile);
+    std::ifstream input(inputFile);
 
     if (!input.is_open()) {
-        cout << "Error opening input file: " << inputFile << endl;
-        exit(-1);
+        throw std::runtime_error("Error opening input file: "+ inputFile);
     }
 
     input >> dimensions; 
     input >> r; 
 
     if(r <= 0.0){
-        cout << "The value of the radius is not valid " << endl;
-        cout << "The radius is:" << r << endl;
-        exit(-1);
+        throw std::invalid_argument("The value of the radius is not valid");
     }
         
     if(dimensions <= 0){
-        cout << "The value of the dimension is not valid" << endl;
-        exit(-1);
+        throw std::invalid_argument("The value of the dimension is not valid");
     }
 
     //this for loop is used in order to take the coordinates of the center
@@ -43,13 +39,13 @@ HyperSphere::HyperSphere(const string inputFile)
 }
 
 int 
-HyperSphere::getDimensionDomain() 
+const HyperSphere::getDimensionDomain() 
 {
     return dimensions;
 }
         
 double
-HyperSphere::getVolume() 
+const HyperSphere::getVolume() 
 {
     return (std::pow(r,dimensions) * std::pow(M_PI, dimensions/2.0))/ std::tgamma((dimensions/2.0)+1.0);
 } 
@@ -62,10 +58,8 @@ HyperSphere::generateRandomPoint()
     point.resize(dimensions);
         
     //this is to generate a random number (inside the hypercube)
-
-    //bisogna rendere tutto thread safe perché altrimenti c'è il rischio che più thread creino gli stessi punti
         for(int j = 0; j < dimensions; j++){
-            uniform_real_distribution<double> distribution(cord[j].x, cord[j].y);
+            std::uniform_real_distribution<double> distribution(cord[j].x, cord[j].y);
             point[j] = distribution(re);
             sum += (point[j]-center[j])*(point[j]-center[j]);
         }
@@ -81,14 +75,14 @@ HyperSphere::getRadius()
     return r; 
 }
 
-vector<double> 
-HyperSphere::getPoint()
+std::vector<double> 
+const HyperSphere::getPoint()
 {
     return point;
 }
 
-string 
-HyperSphere::getFunction()
+std::string 
+const HyperSphere::getFunction()
 {
     return function;
 }

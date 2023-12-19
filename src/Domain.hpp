@@ -7,17 +7,16 @@
 #include <cstdlib>
 #include <random>
 
-using namespace std;
+
 class Domain {
 
     protected:
-    mt19937 re{random_device{}()};
+    std::mt19937 re{std::random_device{}()};
     int dimensions = 0;
-    string function; 
-    vector<double> point;
+    std::string function; 
+    std::vector<double> point;
 
-
-    struct Coordinates {
+    struct PuntiAssi {
         double x,y; 
     }; 
 
@@ -30,10 +29,10 @@ class Domain {
     };
     virtual ~Domain() = default;
 
-    virtual int getDimensionDomain() = 0; 
-    virtual double getVolume() = 0; 
+    virtual const int getDimensionDomain() = 0; 
+    virtual const double getVolume() = 0; 
     virtual double generateRandomPoint() = 0;
-    virtual vector<double> getPoint() = 0;
-    virtual string getFunction() = 0;
+    virtual const std::vector<double> getPoint() = 0;
+    virtual const std::string getFunction() = 0;
 };
-#endif //DOMAIN_H
+#endif
