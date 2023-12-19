@@ -15,6 +15,7 @@ class MontecarloIntegration{
 
     public:
     
+    //@note: should be const
     double 
     const getIntegral();
 

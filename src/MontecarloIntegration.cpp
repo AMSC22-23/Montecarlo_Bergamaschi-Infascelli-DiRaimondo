@@ -23,6 +23,8 @@ double MontecarloIntegration::integrate(std::unique_ptr<Domain> &d, int samples)
 
     while(d->generateRandomPoint() == -1);
     point = d->getPoint();
+    //@note: muparserx natively supports arrays
+    //       also the definition of variables could be done just once
     for(int h = 1; h <= d->getDimensionDomain(); h++) {
         start = "x";
         num = std::to_string(h);

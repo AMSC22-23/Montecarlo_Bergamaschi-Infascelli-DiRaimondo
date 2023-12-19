@@ -16,8 +16,10 @@ class HyperRectangle : public Domain{
         std::vector<PuntiAssi> cord; 
         
     public:
+    //@note: shoudl pass by const **reference**
     HyperRectangle(const std::string inputFile);
 
+    //@note: should be const (and other below)
     int 
     const getDimensionDomain();
 
