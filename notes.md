@@ -12,5 +12,4 @@
 - the function to integrate and the domain are two separate entities, it would make more sense to treat them in two different data structures
 
 ## Minor
-- could use `std::vector` or `std::array` to work in N-dimesions and not just two
 - parameter files shuould be in a different directory
